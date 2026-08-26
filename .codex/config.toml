@@ -1,0 +1,9 @@
+[agents]
+enabled = true
+
+# Generic fallback for any subagent without its own configuration
+# Main agent is on Gemini 3.6 Flash (Medium thinking); subagents use lower models (flash_lite or flash with low thinking)
+default_subagent_model = "flash_lite"
+default_subagent_reasoning_effort = "low"
+
+max_concurrent_threads_per_session = 4

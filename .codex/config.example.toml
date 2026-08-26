@@ -1,0 +1,10 @@
+# Example .toml file for configured subagents (Antigravity)
+
+[agents]
+enabled = true
+
+# Generic fallback for any subagent without its own configuration
+default_subagent_model = "flash_lite" # lower model than main agent (3.6 Flash Medium thinking)
+default_subagent_reasoning_effort = "low" # lower reasoning power than main agent
+
+max_concurrent_threads_per_session = 4
