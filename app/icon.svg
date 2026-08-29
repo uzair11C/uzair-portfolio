@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0D0D11"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#272732" stroke-width="2"/>
+  
+  <!-- Racing Red Accent Stripe -->
+  <path d="M12 8 L24 8 L18 56 L6 56 Z" fill="#E8002D" />
+  
+  <!-- Stylized Telemetry 'U' -->
+  <path d="M26 18 V38 C26 44 30 48 37 48 C44 48 48 44 48 38 V18 H40 V37 C40 39 39 41 37 41 C35 41 34 39 34 37 V18 H26 Z" fill="#F3F3F6"/>
+  
+  <!-- Modena Yellow Dot -->
+  <circle cx="52" cy="16" r="4" fill="#FFF200"/>
+</svg>

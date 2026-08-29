@@ -5,148 +5,309 @@ import { GlassCard } from '../GlassCard';
 import { SectionHeader } from '../SectionHeader';
 import { TelemetryBadge } from '../TelemetryBadge';
 import { ImagePlaceholder } from '../ImagePlaceholder';
-import { portfolioData, Project } from '@/data/portfolio';
+import { portfolioData } from '@/data/portfolio';
 import {
   IconExternalLink,
   IconBrandGithub,
   IconChevronDown,
   IconChevronUp,
-  IconSparkles,
   IconAward,
-  IconTerminal2
+  IconCheck,
+  IconArchive,
+  IconDeviceTv,
+  IconCode
 } from '@tabler/icons-react';
 
 export function FlagshipProjects() {
   const { projects } = portfolioData;
   const [legacyVaultOpen, setLegacyVaultOpen] = useState(false);
 
-  const flagshipProjects = projects.filter(p => p.category === 'flagship' || p.category === 'company');
+  const flagshipProject = projects.find(p => p.category === 'flagship');
+  const companyProjects = projects.filter(p => p.category === 'company');
+  const rokuProjects = projects.filter(p => p.category === 'roku');
   const legacyProjects = projects.filter(p => p.category === 'legacy');
 
   return (
-    <section id="projects" className="py-24 bg-carbon-mesh relative">
+    <section id="projects" className="py-24 bg-zinc-950/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          sectionNumber="03"
-          title="Flagship Telemetry Case Studies"
-          subtitle="Featured enterprise web architectures & high-velocity UI builds."
-          badgeLabel="LAP_RECORDS"
+          sectionNumber="04"
+          title="Featured Engineering Projects & Roku Portfolio"
+          subtitle="Production web applications, flagship dashboards, Roku TV apps (~3 Yrs), and legacy React builds."
+          badgeLabel="FEATURED_PROJECTS"
           badgeVariant="rosso"
         />
 
-        {/* Flagship & Enterprise Projects Grid */}
-        <div className="space-y-12">
-          {flagshipProjects.map((project) => (
-            <GlassCard key={project.id} className="p-8 border-[#E8002D]/20 hover:border-[#E8002D]/50">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Left Side: Project Metadata & Details */}
+        {/* 01 — FLAGSHIP WEB PROJECT (neofulkrum) */}
+        {flagshipProject && (
+          <div className="mb-16">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="px-3 py-1 rounded bg-[#E8002D] text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-[#E8002D]/20">
+                <IconAward className="w-4 h-4" />
+                01 — FLAGSHIP WEB PROJECT
+              </span>
+              <TelemetryBadge label={flagshipProject.ownership} variant="modena" />
+            </div>
+
+            <GlassCard className="p-8 sm:p-10 border-[#E8002D]/40 space-y-8 bg-zinc-950/90">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                {/* Left Side: Case Details */}
                 <div className="lg:col-span-7 space-y-6">
-                  {/* Badges */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="px-3 py-1 rounded-md text-xs font-mono font-bold uppercase tracking-wider bg-[#E8002D] text-white flex items-center gap-1.5 shadow-md shadow-[#E8002D]/30">
-                      <IconAward className="w-3.5 h-3.5" stroke={1.5} />
-                      {project.category === 'flagship' ? 'FLAGSHIP ENTERPRISE' : 'COMPANY PLATFORM'}
-                    </span>
-                    <TelemetryBadge label={project.ownership} variant="modena" />
-                    <span className="text-xs font-mono text-zinc-400">{project.role}</span>
-                  </div>
-
-                  {/* Title & Description */}
                   <div>
-                    <h3 className="text-3xl font-extrabold text-white font-sans tracking-tight mb-3">
-                      {project.title}
+                    <h3 className="text-3xl sm:text-4xl font-black text-white font-sans tracking-tight mb-3">
+                      {flagshipProject.title}
                     </h3>
-                    <p className="text-sm text-zinc-300 font-sans leading-relaxed">
-                      {project.description}
+                    <p className="text-sm font-mono text-[#E8002D] font-semibold">
+                      ROLE: {flagshipProject.role.toUpperCase()} ({flagshipProject.ownership})
                     </p>
-                    {project.longDescription && (
-                      <p className="text-xs font-mono text-zinc-400 leading-relaxed mt-2 border-l-2 border-[#E8002D]/50 pl-3">
-                        {project.longDescription}
-                      </p>
-                    )}
                   </div>
 
-                  {/* Metrics Row */}
-                  <div className="grid grid-cols-3 gap-3 p-3.5 rounded-xl bg-zinc-950/80 border border-white/10">
-                    {project.metrics.map((metric, idx) => (
-                      <div key={idx} className="text-center font-mono">
-                        <span className="block text-[10px] text-zinc-500 uppercase">{metric.label}</span>
-                        <span className="text-base font-bold text-[#FFF200]">{metric.value}</span>
-                      </div>
-                    ))}
+                  <p className="text-sm text-zinc-300 font-sans leading-relaxed">
+                    {flagshipProject.overview || flagshipProject.description}
+                  </p>
+
+                  {/* Contributions */}
+                  {flagshipProject.contributions && (
+                    <div className="space-y-2.5 pt-2">
+                      <h4 className="font-mono text-xs font-bold text-zinc-300 uppercase tracking-widest">
+                        KEY ENGINEERING CONTRIBUTIONS:
+                      </h4>
+                      <ul className="space-y-2">
+                        {flagshipProject.contributions.map((contribution, idx) => (
+                          <li key={idx} className="flex items-start gap-2.5 text-xs text-zinc-300 font-sans">
+                            <span className="w-4 h-4 rounded bg-[#E8002D]/20 border border-[#E8002D]/40 flex items-center justify-center shrink-0 text-[#E8002D] mt-0.5">
+                              <IconCheck className="w-3 h-3" stroke={2} />
+                            </span>
+                            <span>{contribution}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Technologies */}
+                  <div className="space-y-2">
+                    <span className="block text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
+                      TECHNOLOGIES INVOLVED:
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {flagshipProject.technologies.map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className="px-3 py-1 rounded-md bg-white/5 text-xs font-mono text-zinc-200 border border-white/10 uppercase"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Telemetry Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.telemetryTags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 rounded bg-white/5 text-[10px] font-mono text-zinc-300 border border-white/10 uppercase tracking-wider"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex items-center gap-4 pt-2">
-                    {project.liveUrl && (
+                  {/* Links */}
+                  <div className="flex items-center gap-4 pt-3">
+                    {flagshipProject.liveUrl && (
                       <a
-                        href={project.liveUrl}
+                        href={flagshipProject.liveUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#E8002D] hover:bg-[#D40026] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#E8002D]/20"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#E8002D] hover:bg-[#D40026] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#E8002D]/20"
                       >
-                        <span>LIVE TELEMETRY DEMO</span>
+                        <span>VIEW LIVE DEMO</span>
                         <IconExternalLink className="w-4 h-4" stroke={1.5} />
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {flagshipProject.githubUrl && (
                       <a
-                        href={project.githubUrl}
+                        href={flagshipProject.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white font-mono text-xs font-bold uppercase tracking-wider border border-white/10 transition-all"
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white font-mono text-xs font-bold uppercase tracking-wider border border-white/10 transition-all"
                       >
                         <IconBrandGithub className="w-4 h-4 text-zinc-400" stroke={1.5} />
-                        <span>SOURCE CODE</span>
+                        <span>VIEW CODE REPO</span>
                       </a>
                     )}
                   </div>
                 </div>
 
-                {/* Right Side: Structured Thumbnail Placeholder */}
+                {/* Right Side: Screenshot Slot Placeholder */}
                 <div className="lg:col-span-5">
                   <ImagePlaceholder
                     type="project"
-                    label={project.thumbnailLabel}
-                    sublabel={`ROLE: ${project.role.toUpperCase()}`}
+                    label={flagshipProject.thumbnailLabel}
+                    sublabel="PROJECT SCREENSHOT SLOT"
                   />
                 </div>
               </div>
             </GlassCard>
-          ))}
+          </div>
+        )}
+
+        {/* 02 — COMPANY WEB PROJECT (vendorIQ) */}
+        {companyProjects.length > 0 && (
+          <div className="space-y-6 mb-16">
+            <h4 className="font-mono text-xs font-bold text-zinc-400 uppercase tracking-widest">
+              02 — COMPANY WEB PROJECT (MAY 2026 TRANSITION)
+            </h4>
+
+            <div className="grid grid-cols-1 gap-8">
+              {companyProjects.map((project) => (
+                <GlassCard key={project.id} className="p-8 border-white/10 hover:border-[#FFF200]/30">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div className="lg:col-span-7 space-y-4">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <TelemetryBadge label={project.ownership} variant="modena" />
+                        <span className="text-xs font-mono text-zinc-400">{project.role}</span>
+                      </div>
+
+                      <h4 className="text-2xl font-bold text-white font-sans">{project.title}</h4>
+                      <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                        {project.overview || project.description}
+                      </p>
+
+                      {project.contributions && (
+                        <ul className="space-y-1.5 pt-1">
+                          {project.contributions.map((c, cIdx) => (
+                            <li key={cIdx} className="flex items-start gap-2 text-xs text-zinc-300 font-sans">
+                              <span className="text-[#FFF200] font-mono">•</span>
+                              <span>{c}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {project.technologies.map((tech, idx) => (
+                          <span key={idx} className="px-2.5 py-1 rounded bg-white/5 text-[11px] font-mono text-zinc-300 border border-white/10 uppercase">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center gap-4 pt-3">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-xs font-mono text-[#FFF200] hover:underline flex items-center gap-1.5 font-bold"
+                          >
+                            <span>LIVE DEMO</span>
+                            <IconExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1.5"
+                          >
+                            <IconBrandGithub className="w-3.5 h-3.5" />
+                            <span>CODE REPO</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="lg:col-span-5">
+                      <ImagePlaceholder
+                        type="project"
+                        label={project.thumbnailLabel}
+                        sublabel="PROJECT SCREENSHOT SLOT"
+                      />
+                    </div>
+                  </div>
+                </GlassCard>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* 03 — ROKU APPLICATION PORTFOLIO (~3 Years Professional Experience Showcase) */}
+        <div className="space-y-6 mb-16">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h4 className="font-mono text-xs font-bold text-zinc-400 uppercase tracking-widest flex items-center gap-2">
+                <IconDeviceTv className="w-4 h-4 text-purple-400" />
+                <span>03 — ROKU TV APPLICATION PORTFOLIO (~3 YEARS PROFESSIONAL EXPERIENCE)</span>
+              </h4>
+              <p className="text-xs text-zinc-400 font-sans mt-1">
+                Full frontend Roku TV streaming apps, SceneGraph layouts, and BrightScript API integrations built at Invotyx.
+              </p>
+            </div>
+            <TelemetryBadge label="MAJOR ROKU EXPERTISE" variant="rosso" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {rokuProjects.map((project) => (
+              <GlassCard key={project.id} className="p-6 space-y-4 border-purple-500/20 hover:border-purple-500/50">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h5 className="text-lg font-bold text-white font-sans flex items-center gap-2">
+                      <span>{project.title}</span>
+                    </h5>
+                    <span className="text-xs font-mono text-purple-300">{project.ownership}</span>
+                  </div>
+                  <TelemetryBadge label="ROKU APP" variant="modena" />
+                </div>
+
+                <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                  {project.overview || project.description}
+                </p>
+
+                {project.contributions && (
+                  <ul className="space-y-1 pt-1">
+                    {project.contributions.map((c, cIdx) => (
+                      <li key={cIdx} className="flex items-start gap-2 text-xs text-zinc-300 font-sans">
+                        <span className="text-purple-400 font-mono">›</span>
+                        <span>{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  {project.technologies.map((tech, idx) => (
+                    <span key={idx} className="px-2 py-0.5 rounded bg-purple-950/40 text-[10px] font-mono text-purple-200 border border-purple-500/30">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+
+          {/* F1 Visual Asset Motif 2 (Cockpit / Steering Wheel View Visual Motif) */}
+          <div className="mt-8">
+            <ImagePlaceholder
+              type="project"
+              src={portfolioData.profile.f1Visuals.cockpitView}
+              alt="Ferrari F1 Cockpit Steering Wheel View"
+              label="FERRARI F1 COCKPIT // STEERING WHEEL VIEW"
+              sublabel="MOTORSPORT VISUAL MOTIF 2"
+            />
+          </div>
         </div>
 
-        {/* Collapsible Secondary Showcase: Legacy Era Vault (Pre-AI React Builds) */}
-        <div className="mt-16 pt-8 border-t border-white/10">
+        {/* 04 — LEGACY REACT PROJECTS (Collapsible Vault) */}
+        <div className="pt-8 border-t border-white/10">
           <button
             onClick={() => setLegacyVaultOpen(!legacyVaultOpen)}
             className="w-full glass-card p-5 flex items-center justify-between group hover:border-[#FFF200]/40 transition-all text-left"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-[#FFF200]/10 border border-[#FFF200]/30 flex items-center justify-center text-[#FFF200]">
-                <IconTerminal2 className="w-5 h-5" stroke={1.5} />
+                <IconArchive className="w-5 h-5" stroke={1.5} />
               </div>
               <div>
                 <h4 className="text-lg font-bold text-white font-mono flex items-center gap-3">
-                  <span>LEGACY ERA VAULT (PRE-AI REACT BUILDS)</span>
+                  <span>04 — LEGACY REACT PROJECTS & FYP</span>
                   <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-zinc-300 font-mono">
-                    {legacyProjects.length} ARCHIVED
+                    {legacyProjects.length} PROJECTS
                   </span>
                 </h4>
                 <p className="text-xs font-mono text-zinc-400">
-                  Foundational React applications built from scratch prior to LLM acceleration.
+                  Early React applications, university final-year project modules (Smart Learn), and prototype builds.
                 </p>
               </div>
             </div>
@@ -158,50 +319,50 @@ export function FlagshipProjects() {
 
           {/* Collapsible Content */}
           {legacyVaultOpen && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 animate-in fade-in duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               {legacyProjects.map((proj) => (
-                <GlassCard key={proj.id} className="space-y-4 border-white/10 hover:border-[#FFF200]/30">
+                <GlassCard key={proj.id} className="p-6 space-y-4 border-white/10 hover:border-[#FFF200]/30">
                   <div className="flex justify-between items-start">
                     <div>
                       <h5 className="text-lg font-bold text-white font-sans">{proj.title}</h5>
-                      <span className="text-xs font-mono text-zinc-500">{proj.ownership}</span>
+                      <span className="text-xs font-mono text-zinc-400">{proj.ownership}</span>
                     </div>
-                    <TelemetryBadge label="PRE-AI ERA" variant="neutral" />
+                    <TelemetryBadge label="LEGACY" variant="neutral" />
                   </div>
 
-                  <p className="text-xs text-zinc-400 font-sans leading-relaxed">
-                    {proj.description}
+                  <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                    {proj.overview || proj.description}
                   </p>
 
+                  {proj.contributions && (
+                    <ul className="space-y-1 pt-1">
+                      {proj.contributions.map((c, cIdx) => (
+                        <li key={cIdx} className="flex items-start gap-2 text-xs text-zinc-300 font-sans">
+                          <span className="text-[#FFF200] font-mono">•</span>
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
                   <div className="flex flex-wrap gap-1.5 pt-2">
-                    {proj.telemetryTags.map((tag, idx) => (
-                      <span key={idx} className="px-2 py-0.5 rounded bg-white/5 text-[9px] font-mono text-zinc-400 border border-white/5">
-                        {tag}
+                    {proj.technologies.map((tech, idx) => (
+                      <span key={idx} className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-zinc-400 border border-white/5">
+                        {tech}
                       </span>
                     ))}
                   </div>
 
                   <div className="flex items-center gap-3 pt-3 border-t border-white/5">
-                    {proj.liveUrl && (
-                      <a
-                        href={proj.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs font-mono text-[#FFF200] hover:underline flex items-center gap-1"
-                      >
-                        <span>VIEW ARCHIVE</span>
-                        <IconExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
                     {proj.githubUrl && (
                       <a
                         href={proj.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1"
+                        className="text-xs font-mono text-[#FFF200] hover:underline flex items-center gap-1 font-bold"
                       >
                         <IconBrandGithub className="w-3.5 h-3.5" />
-                        <span>REPO</span>
+                        <span>CODE REPO</span>
                       </a>
                     )}
                   </div>

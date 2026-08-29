@@ -489,8 +489,4 @@ If all issues are resolved:
 
 - What was wrong
 - What you did to fix it
-- Where you did
-
-### Testing
-
-Test cases, to test the changes, frontend and backend (if possible)
+- Where you did it

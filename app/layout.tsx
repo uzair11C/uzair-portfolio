@@ -13,26 +13,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Uzair Abdullah // AI-Assisted Senior Frontend Engineer",
-  description: "Scuderia Ferrari & Pit Wall Telemetry themed developer portfolio for Uzair Abdullah. Specializing in Next.js 16, TypeScript, Tailwind CSS, and AI-accelerated frontend architecture.",
+  title: "Uzair Abdullah — Junior Frontend Engineer",
+  description: "Personal developer portfolio of Uzair Abdullah, Junior Frontend Engineer specializing in Next.js, React, TypeScript, and AI-assisted workflows.",
   keywords: [
     "Uzair Abdullah",
-    "Frontend Engineer",
+    "Junior Frontend Engineer",
     "Next.js Developer",
-    "AI Frontend Developer",
+    "React Developer",
     "TypeScript",
     "Tailwind CSS",
-    "React Developer",
-    "neofulkrum",
-    "vendorIQ"
+    "Roku TV Developer",
+    "AI-Assisted Workflows"
   ],
   authors: [{ name: "Uzair Abdullah" }],
   openGraph: {
-    title: "Uzair Abdullah // AI-Assisted Senior Frontend Engineer",
-    description: "Engineering high-velocity, pit-wall precise web architectures accelerated by advanced LLM workflows.",
+    title: "Uzair Abdullah — Junior Frontend Engineer",
+    description: "Building modern, production-grade web experiences with React, Next.js, TypeScript, and AI-assisted engineering workflows.",
     type: "website",
     locale: "en_US",
   },
+  icons: {
+    icon: "/icon.svg",
+  }
 };
 
 export default function RootLayout({
@@ -44,8 +46,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#0D0D11] text-[#F3F3F6]">
+      <body className="min-h-full flex flex-col bg-[#0D0D11] text-[#F3F3F6]" suppressHydrationWarning>
         {children}
       </body>
     </html>
